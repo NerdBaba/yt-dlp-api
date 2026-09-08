@@ -1,0 +1,16 @@
+[project]
+name = "yt-dlp-api"
+version = "1.0.0"
+description = "yt-dlp REST API with auto-updates"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "yt-dlp>=2023.11.0",
+    "pydantic>=2.5.0",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.1.0",
+]
