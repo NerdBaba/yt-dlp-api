@@ -48,7 +48,7 @@ RATE_LIMIT_MAX_REQUESTS = 10  # per window
 
 class DownloadRequest(BaseModel):
     url: str
-    format: str = Field(default="best", description="Video format (best, mp4, webm, etc.)")
+    format: str = Field(default="bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]", description="Video format (best, mp4, webm, etc.)")
     quality: str = Field(default="highest", description="Video quality")
     audio_only: bool = Field(default=False, description="Extract audio only")
     subtitles: bool = Field(default=True, description="Download subtitles if available")
