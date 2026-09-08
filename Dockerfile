@@ -19,7 +19,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     curl \
     ffmpeg \
-    cron \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
@@ -45,11 +44,6 @@ RUN echo "# yt-dlp REST API Configuration" > .env \
     && echo "UPDATE_CHECK_INTERVAL=3600" >> .env \
     && echo "LOG_LEVEL=INFO" >> .env
 
-# Create cron job for auto-updates
-RUN echo "0 */1 * * * pip install --upgrade yt-dlp >> /var/log/ytdlp-update.log 2>&1" > /etc/cron.d/ytdlp-update \
-    && chmod 644 /etc/cron.d/ytdlp-update \
-    && touch /var/log/ytdlp-update.log
-
 # Create non-root user for security
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
 USER appuser
@@ -61,5 +55,5 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8080/health || exit 1
 
-# Run cron and app
-CMD cron && python app.py
+# Run the application
+CMD ["python", "app.py"]
