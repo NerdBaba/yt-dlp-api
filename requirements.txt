@@ -5,11 +5,8 @@ fastapi==0.104.1
 uvicorn[standard]==0.24.0
 
 # YouTube download
-yt-dlp==2023.11.16
+yt-dlp==2026.8.19
 
 # Utilities
 python-multipart==0.0.6
 pydantic==2.5.2
-
-# Optional: for enhanced subtitle handling
-# requests==2.31.0
