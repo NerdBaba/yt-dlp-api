@@ -234,7 +234,7 @@ async def download_video(
 @app.get("/get-stream")
 async def get_stream_url(
     url: str = Query(..., description="YouTube URL"),
-    format: str = Query(default="best", description="Video format"),
+    format: str = Query(default="bestvideo+bestaudio/best", description="Video format"),
     client_ip: Optional[str] = Query(default="127.0.0.1", description="Client IP for rate limiting")
 ):
     """Get direct stream URL for YouTube video."""
@@ -249,7 +249,7 @@ async def get_stream_url(
             'quiet': True,
             'no_warnings': True,
             'extract_flat': False,
-            'format': format,
+            'format': format if format != "best" else "bestvideo+bestaudio/best",
         }
         
         info = extract_yt_data(url, ydl_options)
