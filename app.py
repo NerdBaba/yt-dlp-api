@@ -3,6 +3,8 @@
 yt-dlp REST API with auto-updates, rate limiting, and comprehensive YouTube data extraction.
 """
 
+__version__ = "1.0.1"  # Version: format handling fix
+
 import os
 import re
 import subprocess
@@ -132,7 +134,7 @@ async def root():
     """Root endpoint with API information."""
     return {
         "name": "yt-dlp REST API",
-        "version": "1.0.0",
+        "version": __version__,
         "description": "YouTube data extraction API with comprehensive features",
         "endpoints": {
             "download": "/download",
