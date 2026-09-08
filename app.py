@@ -182,8 +182,12 @@ async def download_video(
         if request.audio_only:
             ydl_options['format'] = 'bestaudio/best'
         else:
-            # Use 'bestvideo' as default - yt-dlp will select best available
-            ydl_options['format'] = request.format if request.format != "best" else "bestvideo"
+            # yt-dlp format selection - use bestvideo+bestaudio for compatibility
+            # If user specified a format like "mp4" or "webm", use it; otherwise use best available
+            if request.format in ["mp4", "webm", "flv", "3gp", "mov"]:
+                ydl_options['format'] = f'bestvideo[ext={request.format}]+bestaudio[ext=m4a]/best[ext={request.format}]'
+            else:
+                ydl_options['format'] = 'bestvideo+bestaudio/best'
         
         if request.proxy:
             ydl_options['proxy'] = request.proxy
