@@ -36,7 +36,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY app.py .
-COPY .env.example .env
+
+# Create .env if not exists (default values)
+RUN echo "# yt-dlp REST API Configuration" > .env \
+    && echo "HOST=0.0.0.0" >> .env \
+    && echo "PORT=8080" >> .env \
+    && echo "AUTO_UPDATE_ENABLED=true" >> .env \
+    && echo "UPDATE_CHECK_INTERVAL=3600" >> .env \
+    && echo "LOG_LEVEL=INFO" >> .env
 
 # Create cron job for auto-updates
 RUN echo "0 */1 * * * pip install --upgrade yt-dlp >> /var/log/ytdlp-update.log 2>&1" > /etc/cron.d/ytdlp-update \
